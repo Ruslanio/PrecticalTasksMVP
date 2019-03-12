@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/containerKeyWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/default_margin">
+
+        <TextView
+            style="@style/Label.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/key_words" />
+
+        <TextView
+            android:id="@+id/tvKeyWords"
+            style="@style/Label.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="мастер-класс, помощь" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerResultsCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_below="@id/containerKeyWords">
+
+        <TextView
+            style="@style/Label.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/results_count" />
+
+        <TextView
+            android:id="@+id/tvResultsCount"
+            style="@style/Label.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="109 мероприятий" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/firstDivider"
+        layout="@layout/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_below="@id/containerResultsCount"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstDivider"/>
+
+
+    <include
+        android:id="@+id/secondDivider"
+        layout="@layout/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/negative_nano_margin"
+        android:layout_below="@id/rvResults"/>
+
+</RelativeLayout>

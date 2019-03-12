@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#7db354</color>
+    <color name="colorPrimaryDark">#66a636</color>
+    <color name="colorAccent">#fe7460</color>
+
+    <color name="light_accent">#FFB6A9</color>
+
+    <color name="pale_grey">#eff3f6</color>
+    <color name="turtle_green">#7db354</color>
+    <color name="leaf">#66a636</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="black_40">#66000000</color>
+    <color name="black_87">#de000000</color>
+    <color name="black_70">#b3000000</color>
+    <color name="light_grey">#eaede8</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="red">#FF0000</color>
+    <color name="shadow_black">#20000000</color>
+
+    <color name="black_secondary">#61000000</color>
+
+    <color name="leaf_half_transparent">#8066A636</color>
+
+    <color name="cool_grey">#aabbbb</color>
+    <color name="warm_grey">#979797</color>
+
+
+    <color name="blue_grey">#627f8f</color>
+    <color name="macaroni_and_cheese">#f2b630</color>
+    <color name="light_grey_two">#e8eded</color>
+</resources>
