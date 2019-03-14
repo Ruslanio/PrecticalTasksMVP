@@ -1,6 +1,7 @@
-package com.example.practicaltasks.data.local.repositories.realm
+package com.example.practicaltasksmvp.data.local.realm.impl
 
 import com.example.practicaltasksmvp.data.local.realm.entity.Phone
+import com.example.practicaltasksmvp.data.local.realm.impl.base.AbstractRealmRepository
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
 

@@ -1,7 +1,7 @@
 package com.example.practicaltasksmvp.data.local.realm.impl
 
-import com.example.practicaltasks.data.local.repositories.realm.AbstractRealmRepository
 import com.example.practicaltasksmvp.data.local.realm.entity.Friend
+import com.example.practicaltasksmvp.data.local.realm.impl.base.AbstractRealmRepository
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
 

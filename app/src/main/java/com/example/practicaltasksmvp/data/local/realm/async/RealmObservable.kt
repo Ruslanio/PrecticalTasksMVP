@@ -1,34 +1,51 @@
 package com.example.practicaltasksmvp.data.local.realm.async
 
-import io.reactivex.Observable
+import io.reactivex.Completable
+import io.reactivex.Single
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import java.lang.Exception
 
 class RealmObservable {
 
     companion object {
-        const val CONFIG_IS_NULL_MESSAGE = "config can not be null!"
+        private const val CONFIG_IS_NULL_MESSAGE = "config can not be null!"
 
-        fun <T> asObservable(
+        fun <T> asReadSingle(
             asyncAction: (realm: Realm) -> T,
             config: RealmConfiguration? = Realm.getDefaultConfiguration()
-        ): Observable<T> {
+        ): Single<T> {
             if (config == null) {
                 throw RealmObservableException(CONFIG_IS_NULL_MESSAGE)
             }
-            return Observable.create {
-                val realm = Realm.getInstance(config)
+            return Single.create { emitter ->
                 try {
-                    val result = asyncAction(realm)
-                    it.onNext(result)
-                    it.onComplete()
-
+                    Realm.getInstance(config).use {
+                        val result = asyncAction(it)
+                        emitter.onSuccess(result)
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    it.onError(RealmObservableException(e.message!!))
-                } finally {
-                    realm.close()
+                    emitter.onError(RealmObservableException(e.message!!))
+                }
+            }
+        }
+
+        fun <T> asInsertCompletable(
+            asyncAction: (realm: Realm) -> Unit,
+            config: RealmConfiguration? = Realm.getDefaultConfiguration()
+        ): Completable {
+            if (config == null) {
+                throw RealmObservableException(CONFIG_IS_NULL_MESSAGE)
+            }
+            return Completable.create { emitter ->
+                try {
+                    Realm.getInstance(config).use {
+                        asyncAction(it)
+                        emitter.onComplete()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    emitter.onError(RealmObservableException(e.message!!))
                 }
             }
         }
