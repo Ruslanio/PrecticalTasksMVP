@@ -5,7 +5,7 @@ import android.os.Handler
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseActivity
 import com.example.practicaltasksmvp.mvp.presenter.activity.SplashPresenter
-import com.example.practicaltasksmvp.mvp.view.SplashView
+import com.example.practicaltasksmvp.mvp.view.activity.SplashView
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity(), SplashView {

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import com.arellomobile.mvp.MvpView
 
-interface BaseView : MvpView {
+interface BaseView {
 
     fun onInit(savedInstanceState: Bundle?)
 

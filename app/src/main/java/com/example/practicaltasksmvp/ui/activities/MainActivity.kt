@@ -7,7 +7,7 @@ import com.example.practicaltasks.views.bottomBar.SpaceItem
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseActivity
 import com.example.practicaltasksmvp.mvp.presenter.activity.MainPresenter
-import com.example.practicaltasksmvp.mvp.view.MainView
+import com.example.practicaltasksmvp.mvp.view.activity.MainView
 import com.example.practicaltasksmvp.navigation.*
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -25,11 +25,11 @@ class MainActivity : BaseActivity(), MainView {
 
         bottomView.onClickBottomViewListener = object : CustomBottomView.OnClickListener {
             override fun onCentreButtonClick() {
-
+                presenter.navigateTo(SCREEN_HELP_CATEGORIES)
             }
 
             override fun onItemClick(itemIndex: Int, itemName: String, screenName: String) {
-
+                presenter.navigateTo(screenName)
             }
 
             override fun onItemReselected(itemIndex: Int, itemName: String) {

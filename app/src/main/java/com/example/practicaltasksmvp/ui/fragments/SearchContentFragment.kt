@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseFragment
+import com.example.practicaltasksmvp.mvp.view.fragment.SearchContentView
 
-class SearchContentFragment : BaseFragment() {
+class SearchContentFragment : BaseFragment(), SearchContentView {
 
     companion object {
         const val KEY_TAB_NUM = "key_tab_num"

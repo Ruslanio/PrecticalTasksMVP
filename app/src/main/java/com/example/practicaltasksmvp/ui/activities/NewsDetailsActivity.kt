@@ -3,8 +3,9 @@ package com.example.practicaltasksmvp.ui.activities
 import android.os.Bundle
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseActivity
+import com.example.practicaltasksmvp.mvp.view.activity.NewsDetailsView
 
-class NewsDetailsActivity : BaseActivity() {
+class NewsDetailsActivity : BaseActivity(), NewsDetailsView {
     companion object {
         const val KEY_ITEM_ID = "key_tab_num"
         private const val NO_CONTENT = -1L

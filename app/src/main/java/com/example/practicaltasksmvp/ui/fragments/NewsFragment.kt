@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseFragment
 import com.example.practicaltasksmvp.mvp.base.BaseView
+import com.example.practicaltasksmvp.mvp.view.fragment.HelpCategoryView
+import com.example.practicaltasksmvp.mvp.view.fragment.NewsView
 
-class NewsFragment : BaseFragment(){
+class NewsFragment : BaseFragment(), NewsView{
     companion object {
         const val KEY_CATEGORY_ID = "key_category_id"
         const val KEY_SCREEN_NAME = "key_screen_name"
