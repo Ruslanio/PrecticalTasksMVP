@@ -34,14 +34,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, HasSupportFragmentI
         onInit(savedInstanceState)
     }
 
-    abstract fun onInit(savedInstanceState: Bundle?)
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment> {
         return fragmentDispatchingAndroidInjector
     }
-
-    @LayoutRes
-    abstract fun layoutId(): Int
 
     override fun onResumeFragments() {
         super.onResumeFragments()

@@ -1,4 +1,4 @@
-package com.example.practicaltasksmvp.mvp.presenter
+package com.example.practicaltasksmvp.mvp.presenter.activity
 
 import com.example.practicaltasksmvp.mvp.base.BasePresenter
 import com.example.practicaltasksmvp.mvp.view.SplashView

@@ -7,7 +7,7 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @Module
- class MainActivityModule {
+ class NewsDetailsActivityModule {
 
     @Provides
     @Inject
