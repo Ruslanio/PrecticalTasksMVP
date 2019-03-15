@@ -11,17 +11,16 @@ import com.example.practicaltasksmvp.data.mappers.mapToEntity
 import com.example.practicaltasksmvp.mvp.model.HelpCategoryEntity
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
-class DbManager {
+class DbManager(config : RealmConfiguration) {
 
     companion object {
-
         const val EVERY_CATEGORY = -1L
     }
 
     private val executorHandler = ExecutorManager()
 
-    private val config = Realm.getDefaultConfiguration()!!
     private val newsRepo = RealmNewsArticleRepository(config)
     private val categoriesRepo = RealmHelpCategoryRepository(config)
     private val friendsRepo = RealmFriendRepository(config)
