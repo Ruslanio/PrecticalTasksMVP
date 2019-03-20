@@ -12,7 +12,6 @@ import com.example.practicaltasksmvp.data.local.realm.async.executors.ExecutionC
 import com.example.practicaltasksmvp.data.mappers.mapPojoData
 import com.example.practicaltasksmvp.data.mappers.mapToEntity
 import com.example.practicaltasksmvp.data.remote.ApiManager
-import com.example.practicaltasksmvp.data.remote.pojo.ArticlePojo
 import com.example.practicaltasksmvp.data.remote.pojo.HelpCategoryPojo
 import com.example.practicaltasksmvp.mvp.model.HelpCategoryEntity
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity

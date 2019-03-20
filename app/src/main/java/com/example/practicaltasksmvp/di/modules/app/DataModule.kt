@@ -5,10 +5,9 @@ import com.example.practicaltasksmvp.data.remote.ApiManager
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
-import io.realm.RealmConfiguration
 import javax.inject.Singleton
 
-@Module(includes = [ContextModule::class])
+@Module
 class DataModule {
 
     private val config = Realm.getDefaultConfiguration()

@@ -3,6 +3,7 @@ package com.example.practicaltasksmvp
 import android.app.Activity
 import android.app.Application
 import com.example.practicaltasksmvp.di.DaggerAppComponent
+import com.example.practicaltasksmvp.di.modules.app.ContextModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -20,6 +21,7 @@ class PracticalMvpApp : Application(), HasActivityInjector {
         DaggerAppComponent
             .builder()
             .application(this)
+            .contextModule(ContextModule(this))
             .build()
             .inject(this)
     }

@@ -4,19 +4,17 @@ import android.content.Context
 import com.example.practicaltasksmvp.data.DataManager
 import com.example.practicaltasksmvp.data.local.DbManager
 import com.example.practicaltasksmvp.data.remote.ApiManager
-import com.example.practicaltasksmvp.di.builder.ActivityBuilder
+import com.example.practicaltasksmvp.di.ApplicationContext
 import dagger.Module
 import dagger.Provides
-import javax.inject.Inject
 import javax.inject.Singleton
 
-@Module(includes = [DataModule::class, NavigationModule::class])
+@Module(includes = [DataModule::class, NavigationModule::class, ContextModule::class])
 class MainModule {
 
-    @Inject
     @Singleton
     @Provides
-    fun provideDataManager(apiManager: ApiManager, dbManager: DbManager, context: Context): DataManager {
+    fun provideDataManager(apiManager: ApiManager, dbManager: DbManager, @ApplicationContext context: Context): DataManager {
         return DataManager(context, apiManager, dbManager)
     }
 }

@@ -2,8 +2,6 @@ package com.example.practicaltasksmvp.mvp.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.practicaltasksmvp.R
@@ -28,9 +26,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, HasSupportFragmentI
     protected var navigator: Navigator = SupportAppNavigator(this, R.id.containerMain)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layoutId())
-        AndroidInjection.inject(this)
         onInit(savedInstanceState)
     }
 

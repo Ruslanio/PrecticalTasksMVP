@@ -1,0 +1,53 @@
+package com.example.practicaltasksmvp.util.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+
+abstract class AbstractAdapter<in ITEM> constructor(private var itemList: MutableList<ITEM>,
+                                                    private val layoutResId: Int)
+    : androidx.recyclerview.widget.RecyclerView.Adapter<AbstractAdapter.Holder>() {
+
+    protected abstract fun onItemClick(itemView: View, position: Int)
+
+    protected abstract fun View.bind(item: ITEM)
+
+    override fun getItemCount() = itemList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        val view = LayoutInflater.from(parent.context).inflate(layoutResId, parent, false)
+        val viewHolder = Holder(view)
+        val itemView = viewHolder.itemView
+        itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            if (position != androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
+                onItemClick(itemView, position)
+            }
+        }
+        return viewHolder
+    }
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val item = itemList[position]
+        holder.itemView.bind(item)
+    }
+
+    fun update(items: List<ITEM>) {
+        val res = DiffUtil.calculateDiff(DiffUtilCallback(itemList, items))
+        itemList = items as MutableList<ITEM>
+        res.dispatchUpdatesTo(this)
+    }
+
+    fun add(item: ITEM) {
+        itemList.add(item)
+        notifyItemInserted(itemList.size)
+    }
+
+    fun remove(position: Int) {
+        itemList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    class Holder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
+}

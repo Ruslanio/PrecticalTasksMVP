@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseFragment
-import com.example.practicaltasksmvp.mvp.base.BaseView
-import com.example.practicaltasksmvp.mvp.view.fragment.HelpCategoryView
+import com.example.practicaltasksmvp.mvp.presenter.fragment.NewsPresenter
 import com.example.practicaltasksmvp.mvp.view.fragment.NewsView
+import javax.inject.Inject
 
 class NewsFragment : BaseFragment(), NewsView{
     companion object {
@@ -23,6 +23,8 @@ class NewsFragment : BaseFragment(), NewsView{
         }
     }
 
+    @Inject
+    lateinit var presenter: NewsPresenter
 
     override fun onInit(savedInstanceState: Bundle?) {
 

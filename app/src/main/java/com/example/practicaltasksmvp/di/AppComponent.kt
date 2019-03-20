@@ -3,6 +3,7 @@ package com.example.practicaltasksmvp.di
 import android.app.Application
 import com.example.practicaltasksmvp.PracticalMvpApp
 import com.example.practicaltasksmvp.di.builder.ActivityBuilder
+import com.example.practicaltasksmvp.di.modules.app.ContextModule
 import com.example.practicaltasksmvp.di.modules.app.MainModule
 import dagger.BindsInstance
 import dagger.Component
@@ -20,6 +21,8 @@ interface AppComponent {
 
         @BindsInstance
         fun application(app: Application): Builder
+
+        fun contextModule(module: ContextModule) : Builder
 
         fun build(): AppComponent
     }
