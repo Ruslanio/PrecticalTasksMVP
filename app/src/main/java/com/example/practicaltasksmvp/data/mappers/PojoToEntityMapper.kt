@@ -1,10 +1,6 @@
 package com.example.practicaltasksmvp.data.mappers
 
 import android.content.Context
-import com.example.practicaltasksmvp.data.local.realm.entity.Friend
-import com.example.practicaltasksmvp.data.local.realm.entity.HelpCategory
-import com.example.practicaltasksmvp.data.local.realm.entity.NewsArticle
-import com.example.practicaltasksmvp.data.local.realm.entity.Phone
 import com.example.practicaltasksmvp.data.remote.pojo.ArticlePojo
 import com.example.practicaltasksmvp.data.remote.pojo.HelpCategoryPojo
 import com.example.practicaltasksmvp.data.remote.pojo.LikedFriendPojo
@@ -44,7 +40,7 @@ fun mapToEntity(context: Context, newsArticle: ArticlePojo?): NewsArticleEntity 
             res.name = name
             res.orgName = orgName
             res.orgSite = orgSite
-            res.timePeriod = createTimePeriod(context, dateFrom, dateTo , type)
+            res.timePeriod = createTimePeriod(context, type, dateFrom, dateTo)
             res.shortDescription = shortDescription
             res.type = type
             res.likedFriends = likedFriends.map(::mapToEntity)
