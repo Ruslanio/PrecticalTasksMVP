@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.arellomobile.mvp.MvpView
 import com.example.practicaltasksmvp.R
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -15,10 +16,14 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-abstract class BaseActivity : AppCompatActivity(), BaseView, HasSupportFragmentInjector {
+abstract class BaseActivity<V : MvpView, P : BasePresenter<V>> : AppCompatActivity(), BaseView,
+    HasSupportFragmentInjector {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var presenter : P
 
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>

@@ -10,12 +10,8 @@ import com.example.practicaltasksmvp.mvp.presenter.activity.MainPresenter
 import com.example.practicaltasksmvp.mvp.view.activity.MainView
 import com.example.practicaltasksmvp.navigation.*
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainView {
-
-    @Inject
-    lateinit var presenter: MainPresenter
+class MainActivity : BaseActivity<MainView, MainPresenter>(), MainView {
 
     override fun onInit(savedInstanceState: Bundle?) {
         bottomView.addSpaceItem(SpaceItem(resources.getString(R.string.news), R.drawable.ic_news, SCREEN_NEWS))
