@@ -2,13 +2,14 @@ package com.example.practicaltasksmvp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseFragment
 import com.example.practicaltasksmvp.mvp.presenter.fragment.SearchContentPresenter
 import com.example.practicaltasksmvp.mvp.view.fragment.SearchContentView
 import javax.inject.Inject
 
-class SearchContentFragment : BaseFragment(), SearchContentView {
+class SearchContentFragment : BaseFragment<SearchContentView, SearchContentPresenter>(), SearchContentView {
 
     companion object {
         const val KEY_TAB_NUM = "key_tab_num"
@@ -24,8 +25,8 @@ class SearchContentFragment : BaseFragment(), SearchContentView {
     }
 
     @Inject
-    lateinit var presenter: SearchContentPresenter
-
+    @InjectPresenter
+    override lateinit var presenter: SearchContentPresenter
     override fun onInit(savedInstanceState: Bundle?) {
 
     }

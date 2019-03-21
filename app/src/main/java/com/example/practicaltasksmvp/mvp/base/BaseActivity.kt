@@ -2,10 +2,12 @@ package com.example.practicaltasksmvp.mvp.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.practicaltasksmvp.R
+import com.example.practicaltasksmvp.mvp.base.moxy.MoxyActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -16,14 +18,16 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-abstract class BaseActivity<V : MvpView, P : BasePresenter<V>> : AppCompatActivity(), BaseView,
+abstract class BaseActivity<V : MvpView, P : MvpPresenter<V>> : MoxyActivity(), BaseView,
     HasSupportFragmentInjector {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    @Inject
-    lateinit var presenter : P
+    abstract var presenter: P
+
+    @ProvidePresenter
+    fun providePresenter() : P = presenter
 
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>

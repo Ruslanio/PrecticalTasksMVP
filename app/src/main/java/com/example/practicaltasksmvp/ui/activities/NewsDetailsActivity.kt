@@ -1,10 +1,12 @@
 package com.example.practicaltasksmvp.ui.activities
 
 import android.os.Bundle
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseActivity
 import com.example.practicaltasksmvp.mvp.presenter.activity.NewsDetailsPresenter
 import com.example.practicaltasksmvp.mvp.view.activity.NewsDetailsView
+import javax.inject.Inject
 
 class NewsDetailsActivity : BaseActivity<NewsDetailsView, NewsDetailsPresenter>(), NewsDetailsView {
     companion object {
@@ -13,6 +15,9 @@ class NewsDetailsActivity : BaseActivity<NewsDetailsView, NewsDetailsPresenter>(
         private const val KEY_ARTICLE = "key_article"
     }
 
+    @Inject
+    @InjectPresenter
+    override lateinit var presenter: NewsDetailsPresenter
 
     override fun onInit(savedInstanceState: Bundle?) {
 

@@ -2,6 +2,7 @@ package com.example.practicaltasksmvp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseFragment
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_news.view.*
 import kotlinx.android.synthetic.main.item_news_article.view.*
 import javax.inject.Inject
 
-class NewsFragment : BaseFragment(), NewsView {
+class NewsFragment : BaseFragment<NewsView, NewsPresenter>(), NewsView {
 
 
     companion object {
@@ -32,8 +33,10 @@ class NewsFragment : BaseFragment(), NewsView {
         }
     }
 
+
     @Inject
-    lateinit var presenter: NewsPresenter
+    @InjectPresenter
+    override lateinit var presenter: NewsPresenter
 
     override fun onInit(savedInstanceState: Bundle?) {
         val categoryId = arguments?.getLong(KEY_CATEGORY_ID)

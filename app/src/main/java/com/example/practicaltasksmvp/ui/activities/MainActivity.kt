@@ -2,6 +2,7 @@ package com.example.practicaltasksmvp.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.practicaltasks.views.bottomBar.CustomBottomView
 import com.example.practicaltasks.views.bottomBar.SpaceItem
 import com.example.practicaltasksmvp.R
@@ -10,8 +11,13 @@ import com.example.practicaltasksmvp.mvp.presenter.activity.MainPresenter
 import com.example.practicaltasksmvp.mvp.view.activity.MainView
 import com.example.practicaltasksmvp.navigation.*
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainView, MainPresenter>(), MainView {
+
+    @Inject
+    @InjectPresenter
+    override lateinit var presenter: MainPresenter
 
     override fun onInit(savedInstanceState: Bundle?) {
         bottomView.addSpaceItem(SpaceItem(resources.getString(R.string.news), R.drawable.ic_news, SCREEN_NEWS))
