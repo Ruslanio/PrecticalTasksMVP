@@ -13,6 +13,10 @@ import javax.inject.Inject
 
 class SplashActivity : BaseActivity<SplashView, SplashPresenter>(), SplashView {
 
+    companion object {
+        const val TIMER = 1000L
+    }
+
     @ProvidePresenter
     override fun providePresenter(): SplashPresenter = daggerPresenter.get()
 
@@ -24,11 +28,15 @@ class SplashActivity : BaseActivity<SplashView, SplashPresenter>(), SplashView {
 
     override fun onInit(savedInstanceState: Bundle?) {
         Handler().postDelayed(
-            { presenter.nextView() }, 1000
+            { presenter.nextView() }, TIMER
         )
     }
 
     override fun layoutId(): Int {
         return R.layout.activity_splash
+    }
+
+    override fun finishView() {
+        finish()
     }
 }

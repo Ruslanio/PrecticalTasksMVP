@@ -6,6 +6,7 @@ import com.example.practicaltasksmvp.data.local.realm.async.executors.HandlingEx
 import com.example.practicaltasksmvp.mvp.base.BasePresenter
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
 import com.example.practicaltasksmvp.mvp.view.fragment.NewsView
+import com.example.practicaltasksmvp.navigation.NewsDetailsScreen
 import ru.terrakok.cicerone.Router
 
 @InjectViewState
@@ -29,6 +30,6 @@ class NewsPresenter(private val router: Router, private val dataManager: DataMan
     }
 
     fun onNewsClick(entity: NewsArticleEntity) {
-
+        router.navigateTo(NewsDetailsScreen(entity.id))
     }
 }

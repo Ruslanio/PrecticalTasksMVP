@@ -9,7 +9,8 @@ import ru.terrakok.cicerone.Router
 @InjectViewState
 class SplashPresenter(private val router: Router) : MvpPresenter<SplashView>() {
 
-    fun nextView(){
+    fun nextView() {
         router.navigateTo(MainScreen())
+        viewState.finishView()
     }
 }
