@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.moxy.MoxyActivity
+import dagger.Lazy
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -24,10 +24,11 @@ abstract class BaseActivity<V : MvpView, P : MvpPresenter<V>> : MoxyActivity(), 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
+    abstract var daggerPresenter: Lazy<P>
+
     abstract var presenter: P
 
-    @ProvidePresenter
-    fun providePresenter() : P = presenter
+    abstract fun providePresenter(): P
 
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>

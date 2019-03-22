@@ -1,4 +1,4 @@
-package com.example.practicaltasksmvp.mvp.base
+package com.example.practicaltasksmvp.mvp.base.moxy
 
 import android.os.Build
 import android.os.Bundle
@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.MvpDelegate
 
 
-open class MoxyFragment : Fragment() {
+abstract class MoxyFragment : Fragment() {
+
     private var stateSaved: Boolean = false
     protected val mvpDelegate: MvpDelegate<out MoxyFragment> by lazy { MvpDelegate<MoxyFragment>(this) }
 

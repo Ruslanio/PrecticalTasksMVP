@@ -3,6 +3,7 @@ package com.example.practicaltasksmvp.ui.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.practicaltasksmvp.R
 import com.example.practicaltasksmvp.mvp.base.BaseFragment
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
@@ -11,6 +12,7 @@ import com.example.practicaltasksmvp.mvp.view.fragment.NewsView
 import com.example.practicaltasksmvp.util.gone
 import com.example.practicaltasksmvp.util.setUp
 import com.example.practicaltasksmvp.util.visible
+import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.fragment_news.view.*
 import kotlinx.android.synthetic.main.item_news_article.view.*
@@ -33,10 +35,14 @@ class NewsFragment : BaseFragment<NewsView, NewsPresenter>(), NewsView {
         }
     }
 
+    @ProvidePresenter
+    override fun providePresenter(): NewsPresenter = daggerPresenter.get()
 
-    @Inject
     @InjectPresenter
     override lateinit var presenter: NewsPresenter
+
+    @Inject
+    override lateinit var daggerPresenter: Lazy<NewsPresenter>
 
     override fun onInit(savedInstanceState: Bundle?) {
         val categoryId = arguments?.getLong(KEY_CATEGORY_ID)

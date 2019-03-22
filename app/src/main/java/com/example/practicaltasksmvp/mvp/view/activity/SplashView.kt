@@ -4,5 +4,4 @@ import com.arellomobile.mvp.MvpView
 
 interface SplashView : MvpView {
 
-    fun show()
 }
