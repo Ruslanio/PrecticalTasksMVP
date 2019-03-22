@@ -14,7 +14,7 @@ class NewsPresenter(private val router: Router, private val dataManager: DataMan
 
 
     fun getArticlesByCategoryId(categoryId: Long, forceLoad: Boolean) {
-        val callback = HandlingExecutionCallback<List<NewsArticleEntity>>(this::onDataReceived, this::onLoadStart)
+        val callback = HandlingExecutionCallback(this::onDataReceived, this::onLoadStart)
         return dataManager.getArticles(categoryId, forceLoad, callback)
     }
 
