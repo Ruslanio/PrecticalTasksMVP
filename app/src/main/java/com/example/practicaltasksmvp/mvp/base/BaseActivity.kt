@@ -2,11 +2,12 @@ package com.example.practicaltasksmvp.mvp.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.arellomobile.mvp.MvpPresenter
+import com.arellomobile.mvp.MvpView
 import com.example.practicaltasksmvp.R
+import com.example.practicaltasksmvp.mvp.base.moxy.MoxyActivity
+import dagger.Lazy
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -17,10 +18,17 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-abstract class BaseActivity : AppCompatActivity(), BaseView, HasSupportFragmentInjector {
+abstract class BaseActivity<V : MvpView, P : MvpPresenter<V>> : MoxyActivity(), BaseView,
+    HasSupportFragmentInjector {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    abstract var daggerPresenter: Lazy<P>
+
+    abstract var presenter: P
+
+    abstract fun providePresenter(): P
 
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -28,9 +36,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, HasSupportFragmentI
     protected var navigator: Navigator = SupportAppNavigator(this, R.id.containerMain)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layoutId())
-        AndroidInjection.inject(this)
         onInit(savedInstanceState)
     }
 

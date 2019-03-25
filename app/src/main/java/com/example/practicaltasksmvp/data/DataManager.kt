@@ -12,7 +12,6 @@ import com.example.practicaltasksmvp.data.local.realm.async.executors.ExecutionC
 import com.example.practicaltasksmvp.data.mappers.mapPojoData
 import com.example.practicaltasksmvp.data.mappers.mapToEntity
 import com.example.practicaltasksmvp.data.remote.ApiManager
-import com.example.practicaltasksmvp.data.remote.pojo.ArticlePojo
 import com.example.practicaltasksmvp.data.remote.pojo.HelpCategoryPojo
 import com.example.practicaltasksmvp.mvp.model.HelpCategoryEntity
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
@@ -96,7 +95,7 @@ class DataManager(private val context: Context, private val apiManager: ApiManag
                 .map { mapToEntity(context, it) }
         } else {
             return data
-                .find { helpCategoryPojo -> helpCategoryPojo.id.equals(categoryId) }
+                .find { helpCategoryPojo -> helpCategoryPojo.id.toLong().equals(categoryId) }
                 ?.articles?.map { mapToEntity(context, it) }
         }
     }
@@ -105,7 +104,7 @@ class DataManager(private val context: Context, private val apiManager: ApiManag
         return data
             .flatMap { helpCategoryPojo -> helpCategoryPojo.articles }
             .map { mapToEntity(context, it) }
-            .find { newsArticleEntity -> newsArticleEntity.id.equals(articleId) }
+            .find { newsArticleEntity -> newsArticleEntity.id.toLong().equals(articleId) }
     }
 
     private fun extractCategories(data: List<HelpCategoryPojo>): List<HelpCategoryEntity> {

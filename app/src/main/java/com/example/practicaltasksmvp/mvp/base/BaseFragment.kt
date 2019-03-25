@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.MvpView
-import com.example.practicaltasksmvp.mvp.presenter.fragment.FragmentPresenter
+import com.example.practicaltasksmvp.mvp.base.moxy.MoxyFragment
+import dagger.Lazy
 import dagger.android.support.AndroidSupportInjection
-import javax.inject.Inject
 
-abstract class BaseFragment : Fragment(), BaseView {
+abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : MoxyFragment(), BaseView {
 
-    @Inject
-    lateinit var presenter : FragmentPresenter
+
+    abstract var presenter: P
+
+    abstract var daggerPresenter: Lazy<P>
+
+    abstract fun providePresenter(): P
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutId(), container, false)
@@ -22,7 +24,11 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AndroidSupportInjection.inject(this)
         onInit(savedInstanceState)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
+        super.onCreate(savedInstanceState)
     }
 }
