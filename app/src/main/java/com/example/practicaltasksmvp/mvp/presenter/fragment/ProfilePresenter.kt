@@ -8,8 +8,7 @@ import com.example.practicaltasksmvp.mvp.view.fragment.ProfileView
 import com.example.practicaltasksmvp.util.EditProfileDialog
 
 @InjectViewState
-class ProfilePresenter() :
-    BasePresenter<ProfileView>() {
+class ProfilePresenter() : BasePresenter<ProfileView>() {
 
     val dialogListener = object : EditProfileDialog.OnEditDialogClickListener {
         override fun onChooseClick() {
@@ -56,7 +55,7 @@ class ProfilePresenter() :
         return testData
     }
 
-    fun showFragment(forceShow : Boolean) {
+    fun showFragment(forceShow: Boolean) {
         viewState.showFragment(dialogListener, forceShow)
     }
 }

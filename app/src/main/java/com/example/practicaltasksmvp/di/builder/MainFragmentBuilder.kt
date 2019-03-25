@@ -26,7 +26,7 @@ abstract class MainFragmentBuilder {
     abstract fun bindHistoryFragment(): HistoryFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [SearchModule::class])
+    @ContributesAndroidInjector(modules = [SearchModule::class, SearchContentFragmentBuilder::class])
     abstract fun bindSearchFragment(): SearchFragment
 
 }
