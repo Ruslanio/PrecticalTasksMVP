@@ -9,11 +9,10 @@ import com.example.practicaltasksmvp.mvp.base.BaseFragment
 import com.example.practicaltasksmvp.mvp.model.HelpCategoryEntity
 import com.example.practicaltasksmvp.mvp.presenter.fragment.HelpCategoryPresenter
 import com.example.practicaltasksmvp.mvp.view.fragment.HelpCategoryView
-import com.example.practicaltasksmvp.util.gone
 import com.example.practicaltasksmvp.util.setUp
-import com.example.practicaltasksmvp.util.visible
+import com.example.practicaltasksmvp.util.startRefresh
+import com.example.practicaltasksmvp.util.stopRefresh
 import dagger.Lazy
-import kotlinx.android.synthetic.main.fragment_help_categories.*
 import kotlinx.android.synthetic.main.fragment_help_categories.view.*
 import kotlinx.android.synthetic.main.item_help_category.view.*
 import javax.inject.Inject
@@ -36,7 +35,17 @@ class HelpCategoryFragment : BaseFragment<HelpCategoryView, HelpCategoryPresente
     override lateinit var daggerPresenter: Lazy<HelpCategoryPresenter>
 
     override fun onInit(savedInstanceState: Bundle?) {
-        presenter.getCategories(true)
+        if (savedInstanceState == null) {
+            presenter.getCategories(false)
+        }
+        view?.srlCategories?.setColorSchemeResources(
+            R.color.colorPrimary,
+            R.color.colorPrimaryDark,
+            R.color.colorAccent
+        )
+        view?.srlCategories?.setOnRefreshListener {
+            presenter.getCategories(true)
+        }
     }
 
     override fun showCategories(data: List<HelpCategoryEntity>?) {
@@ -52,13 +61,11 @@ class HelpCategoryFragment : BaseFragment<HelpCategoryView, HelpCategoryPresente
     }
 
     override fun onProgressStart() {
-        pgCategoriesList.visible()
-        rvCategories.gone()
+        view?.srlCategories?.startRefresh()
     }
 
     override fun onProgressStop() {
-        pgCategoriesList.gone()
-        rvCategories.visible()
+        view?.srlCategories?.stopRefresh()
     }
 
 

@@ -10,7 +10,6 @@ import com.example.practicaltasksmvp.data.local.realm.impl.RealmPhoneRepository
 import com.example.practicaltasksmvp.data.mappers.mapToEntity
 import com.example.practicaltasksmvp.mvp.model.HelpCategoryEntity
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
-import io.realm.Realm
 import io.realm.RealmConfiguration
 
 class DbManager(config : RealmConfiguration) {
@@ -43,7 +42,6 @@ class DbManager(config : RealmConfiguration) {
 
     fun getNewsArticleById(articleId: Long, executionCallback: ExecutionCallback<NewsArticleEntity>) {
         executorHandler.doInBackgroundWithResult({
-
             val res = newsRepo.getById(articleId)
             if (res != null) {
                 res.phoneNumbers = phoneRepo.getByArticleId(res.id)

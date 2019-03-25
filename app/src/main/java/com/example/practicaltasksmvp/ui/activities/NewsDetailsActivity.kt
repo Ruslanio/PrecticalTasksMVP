@@ -10,9 +10,9 @@ import com.example.practicaltasksmvp.mvp.model.FriendEntity
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
 import com.example.practicaltasksmvp.mvp.presenter.activity.NewsDetailsPresenter
 import com.example.practicaltasksmvp.mvp.view.activity.NewsDetailsView
-import com.example.practicaltasksmvp.util.gone
 import com.example.practicaltasksmvp.util.setUp
-import com.example.practicaltasksmvp.util.visible
+import com.example.practicaltasksmvp.util.startRefresh
+import com.example.practicaltasksmvp.util.stopRefresh
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_news_details.*
 import kotlinx.android.synthetic.main.item_liked_friend.view.*
@@ -20,16 +20,12 @@ import javax.inject.Inject
 
 class NewsDetailsActivity : BaseActivity<NewsDetailsView, NewsDetailsPresenter>(), NewsDetailsView {
     companion object {
-
         const val KEY_ITEM_ID = "key_tab_num"
-
         private const val NO_CONTENT = -1L
-        private const val KEY_ARTICLE = "key_article"
     }
 
     private var newsId: Long = NO_CONTENT
 
-    private var newsArticle: NewsArticleEntity? = null
 
     @Inject
     override lateinit var daggerPresenter: Lazy<NewsDetailsPresenter>
@@ -42,14 +38,22 @@ class NewsDetailsActivity : BaseActivity<NewsDetailsView, NewsDetailsPresenter>(
 
     override fun onInit(savedInstanceState: Bundle?) {
         newsId = intent?.getLongExtra(KEY_ITEM_ID, NO_CONTENT) ?: NO_CONTENT
-        newsArticle = savedInstanceState?.getSerializable(KEY_ARTICLE) as NewsArticleEntity?
-        showArticle(newsArticle)
+
+        tvArticleName.isSelected = true
+        toolBar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolBar.setNavigationOnClickListener {
+            presenter.close()
+        }
+
+        srlDetails.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
+        srlDetails.setOnRefreshListener {
+            presenter.getArticle(true, newsId)
+        }
+        if (savedInstanceState == null) {
+            presenter.getArticle(false, newsId)
+        }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(KEY_ARTICLE, newsArticle)
-        super.onSaveInstanceState(outState)
-    }
 
     override fun layoutId(): Int {
         return R.layout.activity_news_details
@@ -69,27 +73,17 @@ class NewsDetailsActivity : BaseActivity<NewsDetailsView, NewsDetailsPresenter>(
                 rvLikedFriends.setUp(likedFriends as MutableList<FriendEntity>, R.layout.item_liked_friend, {
                     ivAvatar.setImageResource(it.avatarIconRes)
                 }, manager = LinearLayoutManager(this@NewsDetailsActivity, LinearLayoutManager.HORIZONTAL, false))
-
-
             }
-        } else {
-            presenter.getArticle(true, newsId)
         }
-        tvArticleName.isSelected = true
-        toolBar.setNavigationIcon(R.drawable.ic_arrow_back)
-        toolBar.setNavigationOnClickListener {
-            presenter.close()
-        }
+
     }
 
     override fun onProgressStart() {
-        pgNewsDetails.visible()
-        nsMain.gone()
+        srlDetails.startRefresh()
     }
 
     override fun onProgressStop() {
-        pgNewsDetails.gone()
-        nsMain.visible()
+        srlDetails.stopRefresh()
     }
 
     override fun finishView() {

@@ -9,9 +9,9 @@ import com.example.practicaltasksmvp.mvp.base.BaseFragment
 import com.example.practicaltasksmvp.mvp.model.NewsArticleEntity
 import com.example.practicaltasksmvp.mvp.presenter.fragment.NewsPresenter
 import com.example.practicaltasksmvp.mvp.view.fragment.NewsView
-import com.example.practicaltasksmvp.util.gone
 import com.example.practicaltasksmvp.util.setUp
-import com.example.practicaltasksmvp.util.visible
+import com.example.practicaltasksmvp.util.startRefresh
+import com.example.practicaltasksmvp.util.stopRefresh
 import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.fragment_news.view.*
@@ -48,8 +48,14 @@ class NewsFragment : BaseFragment<NewsView, NewsPresenter>(), NewsView {
         val categoryId = arguments?.getLong(KEY_CATEGORY_ID)
         val screenName = arguments?.getString(KEY_SCREEN_NAME)
 
+        view?.srlNews?.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
+        view?.srlNews?.setOnRefreshListener {
+            presenter.getArticlesByCategoryId(categoryId!!, true)
+        }
         tvNewsScreenName.text = screenName
-        presenter.getArticlesByCategoryId(categoryId!!, true)
+        if (savedInstanceState == null) {
+            presenter.getArticlesByCategoryId(categoryId!!, false)
+        }
     }
 
     override fun layoutId(): Int {
@@ -67,12 +73,10 @@ class NewsFragment : BaseFragment<NewsView, NewsPresenter>(), NewsView {
     }
 
     override fun onProgressStart() {
-        pgNewsList.visible()
-        rvNews.gone()
+        view?.srlNews?.startRefresh()
     }
 
     override fun onProgressStop() {
-        pgNewsList.gone()
-        rvNews.visible()
+        view?.srlNews?.stopRefresh()
     }
 }

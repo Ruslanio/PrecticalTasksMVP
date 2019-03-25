@@ -1,6 +1,7 @@
 package com.example.practicaltasksmvp.util
 
 import android.view.View
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.practicaltasksmvp.util.adapter.Kadapter
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -40,4 +41,13 @@ fun View.gone() {
 
 fun View.visible() {
     visibility = View.VISIBLE
+}
+
+fun SwipeRefreshLayout.startRefresh(){
+    isRefreshing = true
+}
+
+
+fun SwipeRefreshLayout.stopRefresh(){
+    isRefreshing = false
 }
